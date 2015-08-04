@@ -6,4 +6,4 @@ mail_send.bat
 ReportGen.ps1
 start_ReportGen.bat
 
-Daily reports are generating since 21-07-2015
+Daily reports are generated since 21-07-2015
