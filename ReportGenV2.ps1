@@ -8,7 +8,7 @@ $connection.ConnectionString = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source= $p
 $command = $connection.CreateCommand()
 
 $repDate=Get-Date -format dd-MM-yyyy
-$extensions=445,490,461,492,479,498,405
+$extensions=445,490,461,492,479,498,493
 $Names='Silmiya','Tina','Sajani','Sithara','Srimani','Thilini','Charani'
 $NameIterate=0
 foreach ($extn in $Extensions) {
@@ -38,14 +38,15 @@ $dataset.Tables[0] | export-csv  $csvInc  -NoTypeInformation
 
 
 $report="C:\Program Files\CallReportGenerate\Report_$repDate.csv"
-$Names[$NameIterate]+" - "+ $extn| Out-File $report -Append -Encoding Unicode
-#$extn | Out-File $report -Append -Encoding Unicode
-[System.IO.File]::ReadAllText($csv) | Out-File  $report -Append -Encoding Unicode 
-[System.IO.File]::ReadAllText($csvInc) | Out-File  $report -Append -Encoding Unicode
+$Names[$NameIterate]+" - "+ $extn| Out-File $report -Append -Encoding ASCII
+#$extn | Out-File $report -Append -Encoding ASCII
+[System.IO.File]::ReadAllText($csv) | Out-File  $report -Append -Encoding ASCII 
+[System.IO.File]::ReadAllText($csvInc) | Out-File  $report -Append -Encoding ASCII
 $connection.Close()
 $NameIterate=$NameIterate+1
 }
 net use M: /delete
+Rename-Item Report_$repDate.csv Report_$repDate.txt
 cmd.exe /c 'C:\Program Files\CallReportGenerate\mail_send.bat'
 
 
